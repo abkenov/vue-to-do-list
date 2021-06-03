@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css">
+    <title>To Do List on Vue</title>
+  </head>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+  <body>
+    <div id="app" v-cloak>
+      <div class="new-task-box">
+        <input
+          type="text"
+          class="new-task"
+          :placeholder="myPlaceholder"
+          :value="newTaskValue"
+          @input="newTaskChangeHandler"
+          @keypress.enter="addTask"
+        />
+        <button 
+          class="new-task-btn" 
+          @click="addTask"
+        >Add task</button>
+      </div>
+      <div class="tasks-list" v-if="tasks.length">
+        <ul v-for="(task, idx) in tasks">
+          <li key="task">
+            <div>
+              <span>[{{ idx + 1 }}]: {{ task }}</span>
+              <button 
+                class="remove-task-btn" 
+                @click="removeTask(idx)"
+              >done</button>
+            </div>
+          </li>
+        </ul>
+        <hr>
+        <h3>Total number of tasks: {{ totalComputed }}</h3>
+      </div>
+      <h3 v-else>No current tasks!</h3>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
