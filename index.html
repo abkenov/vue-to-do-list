@@ -4,6 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <title>To Do List on Vue</title>
   </head>
   <style>
@@ -17,11 +19,13 @@
         <input
           type="text"
           class="new-task"
+          :maxlength="maxInputLength"
           :placeholder="myPlaceholder"
-          :value="newTaskValue"
-          @input="newTaskChangeHandler"
+          v-model="newTaskValue"
           @keypress.enter="addTask"
-        />
+        >
+        <span class="remaining-characters">{{ remainingInputLength }}</span>
+        </input>
         <button 
           class="new-task-btn" 
           @click="addTask"
@@ -29,9 +33,9 @@
       </div>
       <div class="tasks-list" v-if="tasks.length">
         <ul v-for="(task, idx) in tasks">
-          <li key="task">
-            <div>
-              <span>[{{ idx + 1 }}]: {{ task }}</span>
+          <li class="tasks-list-item" key="task">
+            <div class="task">
+              <span class="task-text">[{{ idx + 1 }}]: {{ task }}</span>
               <button 
                 class="remove-task-btn" 
                 @click="removeTask(idx)"
